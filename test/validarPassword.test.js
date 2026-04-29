@@ -28,3 +28,17 @@ test('rechaza password sin minusculas', () => {
     expect(r.esValida).toBe(false);
     expect(r.errores).toContain('Debe tener al menos una minuscula');
 });
+
+// Ciclo 5 - debe tener al menos un numero
+test('rechaza password sin numeros', () => {
+    const r = validarPassword('Abcdefgh');
+    expect(r.esValida).toBe(false);
+    expect(r.errores).toContain('Debe tener al menos un numero');
+});
+
+// Ciclo 6 - debe tener al menos un caracter especial
+test('rechaza password sin caracteres especiales', () => {
+    const r = validarPassword('Abcdefg1');
+    expect(r.esValida).toBe(false);
+    expect(r.errores).toContain('Debe tener al menos un caracter especial');
+});

@@ -13,6 +13,14 @@ function validarPassword(password) {
         errores.push('Debe tener al menos una minuscula');
     }
 
+    if (!/[0-9]/.test(password)) {
+        errores.push('Debe tener al menos un numero');
+    }
+
+    if (!/[^a-zA-Z0-9]/.test(password)) {
+        errores.push('Debe tener al menos un caracter especial');
+    }
+
     return { esValida: errores.length === 0, errores };
 }
 
