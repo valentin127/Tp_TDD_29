@@ -1,0 +1,15 @@
+{
+  "name": "tp-tdd-password",
+  "version": "1.0.0",
+  "description": "Validador de contraseñas - TP TDD POO2",
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "jest": {
+    "testMatch": ["**/test/**/*.test.js"]
+  }
+}
