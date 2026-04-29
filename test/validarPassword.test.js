@@ -7,3 +7,10 @@ test('retorna objeto con esValida y errores', () => {
     expect(r).toHaveProperty('errores');
     expect(Array.isArray(r.errores)).toBe(true);
 });
+
+// Ciclo 2 - minimo 8 caracteres
+test('rechaza password menor a 8 caracteres', () => {
+    const r = validarPassword('abc');
+    expect(r.esValida).toBe(false);
+    expect(r.errores).toContain('Debe tener al menos 8 caracteres');
+});
