@@ -79,3 +79,17 @@ test('rechaza password que son solo espacios', () => {
     expect(r.esValida).toBe(false);
     expect(r.errores).toContain('No debe contener espacios');
 });
+
+// Ciclo 12 - password no puede contener el username
+test('rechaza password que contiene el username', () => {
+    const r = validarPassword('juan1234A!', 'juan');
+    expect(r.esValida).toBe(false);
+    expect(r.errores).toContain('No debe contener el nombre de usuario');
+});
+
+// Ciclo 13 - comparacion case insensitive del username
+test('rechaza password que contiene el username en mayusculas', () => {
+    const r = validarPassword('JUAN1234A!', 'juan');
+    expect(r.esValida).toBe(false);
+    expect(r.errores).toContain('No debe contener el nombre de usuario');
+});

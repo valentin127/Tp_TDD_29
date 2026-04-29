@@ -1,4 +1,4 @@
-function validarPassword(password) {
+function validarPassword(password, usernameOpcional) {
     const errores = [];
 
     if (password.length < 8) {
@@ -27,6 +27,10 @@ function validarPassword(password) {
 
     if (/\s/.test(password)) {
         errores.push('No debe contener espacios');
+    }
+
+    if (usernameOpcional && password.toLowerCase().includes(usernameOpcional.toLowerCase())) {
+        errores.push('No debe contener el nombre de usuario');
     }
 
     return { esValida: errores.length === 0, errores };
