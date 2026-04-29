@@ -14,3 +14,10 @@ test('rechaza password menor a 8 caracteres', () => {
     expect(r.esValida).toBe(false);
     expect(r.errores).toContain('Debe tener al menos 8 caracteres');
 });
+
+// Ciclo 3 - debe tener al menos una mayuscula
+test('rechaza password sin mayusculas', () => {
+    const r = validarPassword('abcdefgh');
+    expect(r.esValida).toBe(false);
+    expect(r.errores).toContain('Debe tener al menos una mayuscula');
+});
