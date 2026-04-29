@@ -63,3 +63,19 @@ test('rechaza password mayor a 20 caracteres', () => {
     expect(r.esValida).toBe(false);
     expect(r.errores).toContain('No debe superar los 20 caracteres');
 });
+
+// Ciclo 10 - acumula multiples errores
+test('acumula multiples errores a la vez', () => {
+    const r = validarPassword('abc');
+    expect(r.errores.length).toBeGreaterThan(1);
+    expect(r.errores).toContain('Debe tener al menos 8 caracteres');
+    expect(r.errores).toContain('Debe tener al menos una mayuscula');
+    expect(r.errores).toContain('Debe tener al menos un numero');
+});
+
+// Ciclo 11 - password con solo espacios
+test('rechaza password que son solo espacios', () => {
+    const r = validarPassword('        ');
+    expect(r.esValida).toBe(false);
+    expect(r.errores).toContain('No debe contener espacios');
+});
