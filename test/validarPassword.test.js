@@ -93,3 +93,17 @@ test('rechaza password que contiene el username en mayusculas', () => {
     expect(r.esValida).toBe(false);
     expect(r.errores).toContain('No debe contener el nombre de usuario');
 });
+
+// Ciclo 14 - no debe tener 3 caracteres iguales consecutivos
+test('rechaza password con 3 caracteres iguales consecutivos', () => {
+    const r = validarPassword('Aabccc1!');
+    expect(r.esValida).toBe(false);
+    expect(r.errores).toContain('No debe tener 3 caracteres iguales consecutivos');
+});
+
+// Ciclo 15 - acepta password con solo 2 caracteres iguales seguidos
+test('acepta password con solo 2 caracteres iguales seguidos', () => {
+    const r = validarPassword('Aabcc11!');
+    expect(r.esValida).toBe(true);
+    expect(r.errores).toHaveLength(0);
+});

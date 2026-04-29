@@ -33,6 +33,10 @@ function validarPassword(password, usernameOpcional) {
         errores.push('No debe contener el nombre de usuario');
     }
 
+    if (/(.)\1\1/.test(password)) {
+        errores.push('No debe tener 3 caracteres iguales consecutivos');
+    }
+
     return { esValida: errores.length === 0, errores };
 }
 
