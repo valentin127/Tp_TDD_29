@@ -1,41 +1,69 @@
+function tieneLongitudMinima(password) {
+    return password.length >= 8;
+}
+
+function noSuperaLongitudMaxima(password) {
+    return password.length <= 20;
+}
+
+function tieneMayuscula(password) {
+    return /[A-Z]/.test(password);
+}
+
+function tieneMinuscula(password) {
+    return /[a-z]/.test(password);
+}
+
+function tieneNumero(password) {
+    return /[0-9]/.test(password);
+}
+
+function tieneCaracterEspecial(password) {
+    return /[^a-zA-Z0-9]/.test(password);
+}
+
+function noTieneEspacios(password) {
+    return !/\s/.test(password);
+}
+
+function noContieneUsername(password, username) {
+    if (!username) return true;
+    return !password.toLowerCase().includes(username.toLowerCase());
+}
+
+function noTieneConsecutivosIguales(password) {
+    return !(/(.)\1\1/.test(password));
+}
+
 function validarPassword(password, usernameOpcional) {
     const errores = [];
 
-    if (password.length < 8) {
+    if (!tieneLongitudMinima(password))
         errores.push('Debe tener al menos 8 caracteres');
-    }
 
-    if (password.length > 20) {
+    if (!noSuperaLongitudMaxima(password))
         errores.push('No debe superar los 20 caracteres');
-    }
 
-    if (!/[A-Z]/.test(password)) {
+    if (!tieneMayuscula(password))
         errores.push('Debe tener al menos una mayuscula');
-    }
 
-    if (!/[a-z]/.test(password)) {
+    if (!tieneMinuscula(password))
         errores.push('Debe tener al menos una minuscula');
-    }
 
-    if (!/[0-9]/.test(password)) {
+    if (!tieneNumero(password))
         errores.push('Debe tener al menos un numero');
-    }
 
-    if (!/[^a-zA-Z0-9]/.test(password)) {
+    if (!tieneCaracterEspecial(password))
         errores.push('Debe tener al menos un caracter especial');
-    }
 
-    if (/\s/.test(password)) {
+    if (!noTieneEspacios(password))
         errores.push('No debe contener espacios');
-    }
 
-    if (usernameOpcional && password.toLowerCase().includes(usernameOpcional.toLowerCase())) {
+    if (!noContieneUsername(password, usernameOpcional))
         errores.push('No debe contener el nombre de usuario');
-    }
 
-    if (/(.)\1\1/.test(password)) {
+    if (!noTieneConsecutivosIguales(password))
         errores.push('No debe tener 3 caracteres iguales consecutivos');
-    }
 
     return { esValida: errores.length === 0, errores };
 }
