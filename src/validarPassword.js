@@ -5,6 +5,10 @@ function validarPassword(password) {
         errores.push('Debe tener al menos 8 caracteres');
     }
 
+    if (password.length > 20) {
+        errores.push('No debe superar los 20 caracteres');
+    }
+
     if (!/[A-Z]/.test(password)) {
         errores.push('Debe tener al menos una mayuscula');
     }
@@ -19,6 +23,10 @@ function validarPassword(password) {
 
     if (!/[^a-zA-Z0-9]/.test(password)) {
         errores.push('Debe tener al menos un caracter especial');
+    }
+
+    if (/\s/.test(password)) {
+        errores.push('No debe contener espacios');
     }
 
     return { esValida: errores.length === 0, errores };
