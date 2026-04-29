@@ -9,7 +9,11 @@ function validarPassword(password) {
         errores.push('Debe tener al menos una mayuscula');
     }
 
+    if (!/[a-z]/.test(password)) {
+        errores.push('Debe tener al menos una minuscula');
+    }
+
     return { esValida: errores.length === 0, errores };
 }
 
-module.exports = { validarPassword };   
+module.exports = { validarPassword };

@@ -21,3 +21,10 @@ test('rechaza password sin mayusculas', () => {
     expect(r.esValida).toBe(false);
     expect(r.errores).toContain('Debe tener al menos una mayuscula');
 });
+
+// Ciclo 4 - debe tener al menos una minuscula
+test('rechaza password sin minusculas', () => {
+    const r = validarPassword('ABCDEFGH');
+    expect(r.esValida).toBe(false);
+    expect(r.errores).toContain('Debe tener al menos una minuscula');
+});
