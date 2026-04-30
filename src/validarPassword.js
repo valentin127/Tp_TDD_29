@@ -26,34 +26,31 @@ function noTieneEspacios(password) {
     return !/\s/.test(password);
 }
 
+function noTieneConsecutivosIguales(password) {
+    return !(/(.)\1\1/.test(password));
+}
+
 function noContieneUsername(password, username) {
     if (!username) return true;
     return !password.toLowerCase().includes(username.toLowerCase());
 }
 
-function noTieneConsecutivosIguales(password) {
-    return !(/(.)\1\1/.test(password));
-}
-
 const REGLAS = [
-    { check: tieneLongitudMinima,        mensaje: 'Debe tener al menos 8 caracteres' },
-    { check: noSuperaLongitudMaxima,     mensaje: 'No debe superar los 20 caracteres' },
-    { check: tieneMayuscula,             mensaje: 'Debe tener al menos una mayuscula' },
-    { check: tieneMinuscula,             mensaje: 'Debe tener al menos una minuscula' },
-    { check: tieneNumero,                mensaje: 'Debe tener al menos un numero' },
-    { check: tieneCaracterEspecial,      mensaje: 'Debe tener al menos un caracter especial' },
-    { check: noTieneEspacios,            mensaje: 'No debe contener espacios' },
-    { check: noTieneConsecutivosIguales, mensaje: 'No debe tener 3 caracteres iguales consecutivos' },
+    { check: (p)    => tieneLongitudMinima(p),        mensaje: 'Debe tener al menos 8 caracteres' },
+    { check: (p)    => noSuperaLongitudMaxima(p),     mensaje: 'No debe superar los 20 caracteres' },
+    { check: (p)    => tieneMayuscula(p),             mensaje: 'Debe tener al menos una mayuscula' },
+    { check: (p)    => tieneMinuscula(p),             mensaje: 'Debe tener al menos una minuscula' },
+    { check: (p)    => tieneNumero(p),                mensaje: 'Debe tener al menos un numero' },
+    { check: (p)    => tieneCaracterEspecial(p),      mensaje: 'Debe tener al menos un caracter especial' },
+    { check: (p)    => noTieneEspacios(p),            mensaje: 'No debe contener espacios' },
+    { check: (p)    => noTieneConsecutivosIguales(p), mensaje: 'No debe tener 3 caracteres iguales consecutivos' },
+    { check: (p, u) => noContieneUsername(p, u),      mensaje: 'No debe contener el nombre de usuario' },
 ];
 
 function validarPassword(password, usernameOpcional) {
     const errores = REGLAS
-        .filter(regla => !regla.check(password))
+        .filter(regla => !regla.check(password, usernameOpcional))
         .map(regla => regla.mensaje);
-
-    if (!noContieneUsername(password, usernameOpcional)) {
-        errores.push('No debe contener el nombre de usuario');
-    }
 
     return { esValida: errores.length === 0, errores };
 }
