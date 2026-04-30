@@ -1,50 +1,13 @@
-function tieneLongitudMinima(password) {
-    return password.length >= 8;
-}
-
-function noSuperaLongitudMaxima(password) {
-    return password.length <= 20;
-}
-
-function tieneMayuscula(password) {
-    return /[A-Z]/.test(password);
-}
-
-function tieneMinuscula(password) {
-    return /[a-z]/.test(password);
-}
-
-function tieneNumero(password) {
-    return /[0-9]/.test(password);
-}
-
-function tieneCaracterEspecial(password) {
-    return /[^a-zA-Z0-9]/.test(password);
-}
-
-function noTieneEspacios(password) {
-    return !/\s/.test(password);
-}
-
-function noTieneConsecutivosIguales(password) {
-    return !(/(.)\1\1/.test(password));
-}
-
-function noContieneUsername(password, username) {
-    if (!username) return true;
-    return !password.toLowerCase().includes(username.toLowerCase());
-}
-
 const REGLAS = [
-    { check: (p)    => tieneLongitudMinima(p),        mensaje: 'Debe tener al menos 8 caracteres' },
-    { check: (p)    => noSuperaLongitudMaxima(p),     mensaje: 'No debe superar los 20 caracteres' },
-    { check: (p)    => tieneMayuscula(p),             mensaje: 'Debe tener al menos una mayuscula' },
-    { check: (p)    => tieneMinuscula(p),             mensaje: 'Debe tener al menos una minuscula' },
-    { check: (p)    => tieneNumero(p),                mensaje: 'Debe tener al menos un numero' },
-    { check: (p)    => tieneCaracterEspecial(p),      mensaje: 'Debe tener al menos un caracter especial' },
-    { check: (p)    => noTieneEspacios(p),            mensaje: 'No debe contener espacios' },
-    { check: (p)    => noTieneConsecutivosIguales(p), mensaje: 'No debe tener 3 caracteres iguales consecutivos' },
-    { check: (p, u) => noContieneUsername(p, u),      mensaje: 'No debe contener el nombre de usuario' },
+    { check: p     => p.length >= 8,                                     mensaje: 'Debe tener al menos 8 caracteres' },
+    { check: p     => p.length <= 20,                                    mensaje: 'No debe superar los 20 caracteres' },
+    { check: p     => /[A-Z]/.test(p),                                   mensaje: 'Debe tener al menos una mayuscula' },
+    { check: p     => /[a-z]/.test(p),                                   mensaje: 'Debe tener al menos una minuscula' },
+    { check: p     => /[0-9]/.test(p),                                   mensaje: 'Debe tener al menos un numero' },
+    { check: p     => /[^a-zA-Z0-9]/.test(p),                           mensaje: 'Debe tener al menos un caracter especial' },
+    { check: p     => !/\s/.test(p),                                     mensaje: 'No debe contener espacios' },
+    { check: p     => !(/(.)\1\1/.test(p)),                              mensaje: 'No debe tener 3 caracteres iguales consecutivos' },
+    { check: (p,u) => !u || !p.toLowerCase().includes(u.toLowerCase()), mensaje: 'No debe contener el nombre de usuario' },
 ];
 
 function validarPassword(password, usernameOpcional) {
