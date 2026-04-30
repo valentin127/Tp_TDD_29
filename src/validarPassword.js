@@ -35,35 +35,25 @@ function noTieneConsecutivosIguales(password) {
     return !(/(.)\1\1/.test(password));
 }
 
+const REGLAS = [
+    { check: tieneLongitudMinima,        mensaje: 'Debe tener al menos 8 caracteres' },
+    { check: noSuperaLongitudMaxima,     mensaje: 'No debe superar los 20 caracteres' },
+    { check: tieneMayuscula,             mensaje: 'Debe tener al menos una mayuscula' },
+    { check: tieneMinuscula,             mensaje: 'Debe tener al menos una minuscula' },
+    { check: tieneNumero,                mensaje: 'Debe tener al menos un numero' },
+    { check: tieneCaracterEspecial,      mensaje: 'Debe tener al menos un caracter especial' },
+    { check: noTieneEspacios,            mensaje: 'No debe contener espacios' },
+    { check: noTieneConsecutivosIguales, mensaje: 'No debe tener 3 caracteres iguales consecutivos' },
+];
+
 function validarPassword(password, usernameOpcional) {
-    const errores = [];
+    const errores = REGLAS
+        .filter(regla => !regla.check(password))
+        .map(regla => regla.mensaje);
 
-    if (!tieneLongitudMinima(password))
-        errores.push('Debe tener al menos 8 caracteres');
-
-    if (!noSuperaLongitudMaxima(password))
-        errores.push('No debe superar los 20 caracteres');
-
-    if (!tieneMayuscula(password))
-        errores.push('Debe tener al menos una mayuscula');
-
-    if (!tieneMinuscula(password))
-        errores.push('Debe tener al menos una minuscula');
-
-    if (!tieneNumero(password))
-        errores.push('Debe tener al menos un numero');
-
-    if (!tieneCaracterEspecial(password))
-        errores.push('Debe tener al menos un caracter especial');
-
-    if (!noTieneEspacios(password))
-        errores.push('No debe contener espacios');
-
-    if (!noContieneUsername(password, usernameOpcional))
+    if (!noContieneUsername(password, usernameOpcional)) {
         errores.push('No debe contener el nombre de usuario');
-
-    if (!noTieneConsecutivosIguales(password))
-        errores.push('No debe tener 3 caracteres iguales consecutivos');
+    }
 
     return { esValida: errores.length === 0, errores };
 }
